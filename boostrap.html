@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bulls and Cows</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+	<script> 
+	var x=0;	
+	var num=0;
+	//while(true){
+	    //var num = Math.floor((Math.random() * 10000) + 1001);
+		//if (num  > 9999)
+			//{
+				//alert("Number greater than 4")
+				//continue
+			//}
+		
+		//else{break}		  
+	  		//   }
+	createnum()
+	
+	function createnum()
+	{
+	var nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+	var numoriginal =0
+    nums.sort(function(){return Math.random() - 0.5});
+    num = nums.slice(0, 4);
+	//num1 = ""+num;
+	
+	}
+    
+	
+	    $(document).ready(function(){
+	 	   $("#myModal").on('hidden.bs.modal', function(){
+	 	   // alert('The modal is now hidden.');
+	 	    console.log($('#modeltitle'))
+	 	   	$('#modeltitle')[0].innerText="";
+	 	    $('#modelbody')[0].innerText="";
+ 			
+	 	  });
+	 	});
+    
+		function btnclk() 
+		{
+			var bull =0
+			var cow= 0
+			var numinput
+			var a = new Array(4);
+			var b = new Array(4);
+			a[0] = document.getElementById("a").value; 			
+			a[1] = document.getElementById("b").value;			
+			a[2] = document.getElementById("c").value;		
+			a[3] = document.getElementById("d").value;
+			
+			numinput= a[0]+a[1]+a[2]+a[3]
+			
+			num1 = ""+num;
+			
+			b[0]= num1.substring(0, 1)
+			b[1]= num1.substring(2, 3)
+			b[2]= num1.substring(4, 5)
+			b[3] =num1.substring(6, 7)
+			
+			numoriginal=b[0]+b[1]+b[2]+b[3]
+
+			for (i=0; i<=3; i++) 
+			{  
+				
+				if (a[i] == b[i])  
+				{
+					bull = bull + 1
+				
+				} else	
+					{
+					for ( j = 1; j <=4;j++)
+						{
+						if (i != j) 
+							{
+       						if (a[j] == b[i])
+       							{ 
+								cow = cow + 1 
+								}
+       						}           	
+           				}
+					}    
+			}
+			
+							
+			$('#addr'+x).html("<td Class='text-center'>"+ (x+1) +"</td><td Class='text-center'>"+numinput+ "</td><td Class='text-center'>"+bull+"</td><td Class='text-center'>"+cow+"</td>")
+			$('#tab_logic').append('<tr id="addr'+(x+1)+'"></tr>');
+      		x++; 
+			
+		
+      		if (bull==4)
+      		
+      		{ 
+      			
+      			//alert ("You Won!!, Total attempts =" +x)
+      			$('#myModal').modal('show')      			
+      			$('#modeltitle').append("You won");
+      			$('#modelbody').append("You won in "+x+ " attempts");
+      			
+				document.getElementById("a").value = 0
+				document.getElementById("b").value = 0
+				document.getElementById("c").value = 0
+				document.getElementById("d").value = 0
+      			
+      			
+      			
+      		}
+      		
+		}
+	
+		function btn2clk() 
+		{
+			
+			$('#myModal').modal('show')      
+			
+  			$('#modeltitle').append("Alas!!");
+			
+  			$('#modelbody').append("Thanks for your attempt. You lost the game. Number is "+ numoriginal );
+  			
+  			
+  			//$("#tab_logic > tbody").empty();
+  			var myTable= document.getElementById("tab_logic");
+  			if(myTable== null)
+  			    return;
+  			var oTBody = myTable.getElementsByTagName("TBODY")[0];
+  			if(oTBody== null)
+  			    return;
+  			try
+  			{
+  			    oTBody.innerHTML = "";
+  			    oTBody.innerHTML = "<tr id='addr0'></tr>";
+  			    x=0
+  			}
+  			catch(e)
+  			{
+  			    for(var s=0, v=myTable.rows.length; s<v; s++)
+  			        myTable.deleteRow(0);
+  			} 
+  			
+			document.getElementById("a").value = "0"
+			document.getElementById("b").value = "0"
+			document.getElementById("c").value = "0"
+			document.getElementById("d").value = "0"
+  			createnum()
+			
+		}
+		
+	
+		</script>
+    <style>
+    	.table-bordered,
+    	.table-bordered td, 
+    	.table-bordered th {
+    		border: 1px solid #000;
+    	}
+    </style>
+  
+</head>
+<body>
+<div class="jumbotron text-center">
+   <h1>Bulls and Cows</h1> 
+  <p> Guess 4 digit number.Bull is number and position is correct, if only number is correct then its a cow</p> 
+</div>
+
+<div class="container">
+
+    
+	<div class="row" >
+	    <div class="col-sm-3">
+	      <input type = "number" 
+	      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    	  name = "a" min="0" max="9"  step = "1"  value = 0 maxlength = "1" id= "a"/>
+	    </div>
+	    <div class="col-sm-3">
+	      <input type = "number" 
+	      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+	      name = "b" min="0" max="9" step = "1"  value = 0 maxlength = "1" id= "b"/>
+	            
+	    </div>
+	    <div class="col-sm-3">
+	     <input type = "number" 
+	     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+	     name = "c" min="0" max="9"  step = "1"  value = 0 maxlength = "1" id= "c"/>
+	    </div>
+	    <div class="col-sm-3">
+		 <input type = "number" 
+		 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+		 name = "d" min="0" max="9" step = "1"  value = 0  maxlength = "1" id= "d"/>
+	    </div>
+	  
+	</div>
+	
+	<div>
+	<br>
+	
+	<button type="button" onclick = "btnclk()" class="btn btn-success" >Check </button>
+	<button type="button" onclick = "btn2clk()" class="btn btn-success" >Show Value </button>
+	</div>
+	<br>
+	<h2>History </h2>
+	  <p>Attempts and results</p>            
+	  <table class="table table-bordered table-striped" id="tab_logic">
+	    <thead class= "thead-dark">
+	      <tr>
+	        <th Class="text-center"> S. No</th>
+	        <th Class="text-center" >Number</th>
+	        <th Class="text-center"> Bulls</th>
+	        <th Class="text-center"> Cows</th>
+	      </tr>
+	    </thead>
+	    
+	    <tbody>
+			<tr id='addr0'></tr>
+		</tbody>
+	    
+	    </table>
+	    
+	    
+		<div class="modal" id="myModal">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		
+		      <!-- Modal Header -->
+		<div class="modal-header">
+		  <h4 class="modal-title">
+		   <span id ="modeltitle"></span>
+		  
+		  </h4>
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
+		
+		<!-- Modal body -->
+		<div class="modal-body">
+		   
+		  <p>  <span id ="modelbody"></span> </p>
+		 
+		</div>
+		
+		<!-- Modal footer -->
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		      </div>
+		
+		    </div>
+		  </div>
+		</div>
+	    
+	    
+</div>
+
+</body>
+</html>
